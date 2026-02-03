@@ -2,43 +2,44 @@
 #include <stdbool.h>
 #include "vcu-define.h"
 
-// Diğer dosyalardaki fonksiyonları burada tanıtıyoruz (Extern)
-extern void Guvenlik_Denetimi(Arac* a);              // Senin yazdığın (logic_safety.c)
-extern void Performans_Ve_Aero_Yonetimi(Arac* a);    // Arkadaşının yazdığı (logic_motor.c)
-extern void Veri_Girisi_Isle(Arac* a);               // Arkadaşının yazdığı (input_output.c)
-extern void Dashboard_Goster(Arac* a);                // Arkadaşının yazdığı (input_output.c)
+// DiÄŸer dosyalardaki fonksiyonlarÄ± burada tanÄ±tÄ±yoruz (Extern)
+extern void Guvenlik_Denetimi(Arac* a);              
+extern void Performans_Ve_Aero_Yonetimi(Arac* a);    
+extern void Veri_Girisi_Isle(Arac* a);              
+extern void Dashboard_Goster(Arac* a);              
 
 int main() {
-    // 1. ARACI BAŞLAT (İlk değerleri sıfırla)
+    // 1. ARACI BAÅLAT (Ä°lk deÄŸerleri sÄ±fÄ±rla)
     Arac formula_araci = { 0 };
 
-    // Başlangıç için bazı varsayılan değerler
+    // BaÅŸlangÄ±Ã§ iÃ§in bazÄ± varsayÄ±lan deÄŸerler
     formula_araci.batarya_dolulugu = 100;
     formula_araci.basladi_mi = false;
     formula_araci.acil_durum = false;
 
-    printf("Project Cortex: VCU Simülasyonu Başlatıldı...\n");
-    printf("Yardım: Veri girmek için 'ID DEGER' yazın (Örn: 1 1).\n");
+    printf("Project Cortex: VCU SimÃ¼lasyonu BaÅŸlatÄ±ldÄ±...\n");
+    printf("YardÄ±m: Veri girmek iÃ§in 'ID DEGER' yazÄ±n (Ã–rn: 1 1).\n");
 
-    // 2. ANA DÖNGÜ (Sonsuz Döngü)
+    // 2. ANA DÃ–NGÃœ (Sonsuz DÃ¶ngÃ¼)
     while (1) {
-        // ADIM 1: Dashboard'u Güncelle (Ekranı Yazdır)
+        // ADIM 1: Dashboard'u GÃ¼ncelle (EkranÄ± YazdÄ±r)
         Dashboard_Goster(&formula_araci);
 
-        // ADIM 2: Kullanıcıdan Veri Al (Sensör/CAN Verisi Simülasyonu)
+        // ADIM 2: KullanÄ±cÄ±dan Veri Al (SensÃ¶r/CAN Verisi SimÃ¼lasyonu)
         Veri_Girisi_Isle(&formula_araci);
 
-        // ADIM 3: GÜVENLİK DENETİMİ (Senin Kuralların)
-        // Her şeyden önce güvenlik! Eğer bir tehlike varsa tork kesilir.
+        // ADIM 3: GÃœVENLÄ°K DENETÄ°MÄ° (Senin KurallarÄ±n)
+        // Her ÅŸeyden Ã¶nce gÃ¼venlik! EÄŸer bir tehlike varsa tork kesilir.
         Guvenlik_Denetimi(&formula_araci);
 
-        // ADIM 4: MOTOR VE AERO YÖNETİMİ (Arkadaşının Kuralları)
-        // Güvenlik onayı verirse tork hesaplanır ve DRS kontrol edilir.
+        // ADIM 4: MOTOR VE AERO YÃ–NETÄ°MÄ° (ArkadaÅŸÄ±nÄ±n KurallarÄ±)
+        // GÃ¼venlik onayÄ± verirse tork hesaplanÄ±r ve DRS kontrol edilir.
         Performans_Ve_Aero_Yonetimi(&formula_araci);
 
-        // Not: Gerçek bir sistemde burada 'delay' (bekleme) olurdu, 
-        // ama simülasyonda her veri girişinden sonra döngü döner.
+        // Not: GerÃ§ek bir sistemde burada 'delay' (bekleme) olurdu, 
+        // ama simÃ¼lasyonda her veri giriÅŸinden sonra dÃ¶ngÃ¼ dÃ¶ner.
     }
 
     return 0;
+
 }
